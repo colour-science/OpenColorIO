@@ -68,9 +68,9 @@ jobs:
     name: Build wheels on Linux
     runs-on: ubuntu-latest
     # Don't run on OCIO forks
-    if: |
-      github.event_name != 'schedule' ||
-      github.repository == 'AcademySoftwareFoundation/OpenColorIO'
+    # if: |
+    #   github.event_name != 'schedule' ||
+    #   github.repository == 'AcademySoftwareFoundation/OpenColorIO'
     strategy:
       matrix:
         include:
@@ -268,3 +268,4 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          repository-url: https://test.pypi.org/legacy/
