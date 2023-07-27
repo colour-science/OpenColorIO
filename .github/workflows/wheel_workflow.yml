@@ -24,9 +24,6 @@ on:
       - pyproject.toml
       - setup.cfg
       - setup.py
-  schedule:
-    # Nightly build
-    - cron: "0 0 * * *"
 
 jobs:
   # Linux jobs run in Docker containers (manylinux), so the latest OS version
