@@ -4,29 +4,7 @@
 
 name: Wheel
 
-on:
-  push:
-    # Workflow run on tags for v2 only.
-    tags:
-      - v2.*
-  pull_request:
-    # Workflow run on pull_request only when related files change.
-    branches-ignore:
-      - RB-0.*
-      - RB-1.*
-      - gh-pages
-    tags-ignore:
-      - v0.*
-      - v1.*
-    paths:
-      - .github/workflows/wheel_workflow.yml
-      - MANIFEST.in
-      - pyproject.toml
-      - setup.cfg
-      - setup.py
-  schedule:
-    # Nightly build
-    - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   # Linux jobs run in Docker containers (manylinux), so the latest OS version
@@ -45,9 +23,9 @@ jobs:
     name: Build SDist
     runs-on: ubuntu-latest
     # Don't run on OCIO forks
-    if: |
-      github.event_name != 'schedule' ||
-      github.repository == 'AcademySoftwareFoundation/OpenColorIO'
+#    if: |
+#      github.event_name != 'schedule' ||
+#      github.repository == 'AcademySoftwareFoundation/OpenColorIO'
 
     steps:
 
@@ -374,6 +352,7 @@ jobs:
         env:
           CIBW_BUILD: ${{ matrix.python }}
           CIBW_ARCHS: ${{ matrix.arch }}
+          CIBW_TEST_SKIP: "*"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -384,7 +363,7 @@ jobs:
   upload_pypi:
     needs: [sdist, linux, macos, macos-arm, windows]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+#    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
     steps:
       - uses: actions/setup-python@v5
 
@@ -398,3 +377,4 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          repository-url: https://test.pypi.org/legacy/
