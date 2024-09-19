@@ -29,10 +29,23 @@ if platform.system() == "Windows":
 # environment variable to 0.
 #
 
+
+sys.stdout.write("*" * 79)
+sys.stdout.write("\n" )
+sys.stdout.write("*" * 79)
+sys.stdout.write("\n" )
+sys.stdout.write("*" * 79)
+sys.stdout.write("\n" )
+sys.stdout.write("*" * 79)
+sys.stdout.write("\n" )
+
 if sys.version_info >= (3, 8) and platform.system() == "Windows":
     if os.getenv("OCIO_PYTHON_LOAD_DLLS_FROM_PATH", "1") == "1":
         for path in os.getenv("PATH", "").split(os.pathsep):
+            sys.stdout.write(path)
+            sys.stdout.write("\n")
             if os.path.exists(path) and path != ".":
+                print(path)
                 os.add_dll_directory(path)
 
 del os, sys, platform
