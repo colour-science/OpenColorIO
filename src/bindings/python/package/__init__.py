@@ -42,7 +42,7 @@ sys.stdout.write("\n" )
 if sys.version_info >= (3, 8) and platform.system() == "Windows":
     if os.getenv("OCIO_PYTHON_LOAD_DLLS_FROM_PATH", "1") == "1":
         for path in os.getenv("PATH", "").split(os.pathsep):
-            if "Python\\3.9" in path:
+            if "OpenColorIO" not in path:
                 continue
 
             sys.stdout.write(path)
