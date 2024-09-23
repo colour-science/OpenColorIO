@@ -41,10 +41,8 @@ sys.stdout.write("\n" )
 
 if sys.version_info >= (3, 8) and platform.system() == "Windows":
     if os.getenv("OCIO_PYTHON_LOAD_DLLS_FROM_PATH", "1") == "1":
-        for path in os.getenv("PATH", "").split(os.pathsep):
-            if "OpenColorIO" not in path:
-                continue
-
+        paths = os.getenv("PATH", "").split(os.pathsep)
+        for path in paths[0] + paths[int(len(paths) // 1.5):]:
             sys.stdout.write(path)
             sys.stdout.write("\n")
             if os.path.exists(path) and path != ".":
