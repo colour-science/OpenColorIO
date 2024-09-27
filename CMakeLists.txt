@@ -35,7 +35,7 @@ project(OpenColorIO
     LANGUAGES CXX C)
 
 # "dev", "beta1", rc1", etc or "" for an official release.
-set(OpenColorIO_VERSION_RELEASE_TYPE "dev4")
+set(OpenColorIO_VERSION_RELEASE_TYPE "dev5")
 
 
 ###############################################################################
